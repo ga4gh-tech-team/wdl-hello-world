@@ -2,7 +2,7 @@ version: 1.2
 workflows:
   - name: wdlHelloWorld
     subclass: WDL
-    publish: false
+    publish: true
     primaryDescriptorPath: /Dockstore.wdl
     testParameterFiles:
       - /test/dockstore.wdl.json
