@@ -1,40 +1,71 @@
+version 1.0
+
 workflow helloWorld {
+
     call sayHello
-    call sayWorld
-    call sayHelloWorld
+
+    String resultHello = sayHello.resultHello
+
+    call sayWorld {
+        input:
+            resultHello = resultHello
+    }
+
+    String resultWorld = sayWorld.resultWorld
+
+    call sayHelloWorld {
+        input:
+            resultWorld = resultWorld
+    }
 }
 
 task sayHello {
     command {
-        echo "hello"
+        echo "current message is -> hello"
     }
+
     output {
-        String out = read_string(stdout())
+        String resultHello = read_string(stdout())
     }
+
     runtime {
         docker: "ubuntu:18.04"
     }
 }
 
 task sayWorld {
+    input {
+        String resultHello
+    }
+
     command {
-        echo "world"
+        echo "previous message was -> ${resultHello}"
+        echo "current message is -> world"
     }
+
     output {
-        String out = read_string(stdout())
+        String resultWorld = read_string(stdout())
     }
+
     runtime {
         docker: "ubuntu:18.04"
     }
 }
 
 task sayHelloWorld {
-    command {
-        echo "hello world"
+    input {
+        String resultWorld
     }
+
+    command {
+        echo "previous message was -> ${resultWorld}"
+        echo "current message is -> hello world"
+    }
+
     output {
         String out = read_string(stdout())
     }
+
     runtime {
         docker: "ubuntu:18.04"
     }
