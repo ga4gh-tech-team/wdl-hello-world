@@ -21,7 +21,7 @@ workflow helloWorld {
 
 task sayHello {
     command {
-        echo "current message is -> hello"
+        echo "hello"
     }
 
     output {
@@ -39,8 +39,7 @@ task sayWorld {
     }
 
     command {
-        echo "previous message was -> ${resultHello}"
-        echo "current message is -> world"
+        echo "${resultHello} -> world"
     }
 
     output {
@@ -58,8 +57,7 @@ task sayHelloWorld {
     }
 
     command {
-        echo "previous message was -> ${resultWorld}"
-        echo "current message is -> hello world"
+        echo "${resultWorld} -> hello world"
     }
 
     output {
